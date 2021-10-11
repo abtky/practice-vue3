@@ -1,7 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
   <TaskItem v-for="task in tasks" :key="task.id" :task="task" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
 </template>
 
 <script lang="ts">
@@ -20,7 +18,10 @@ export default defineComponent({
   },
   setup() {
     const state = reactive<State>({
-      tasks: [generateTask('My first task')],
+      tasks: [
+        generateTask('My first task'),
+        generateTask('My second task'),
+      ],
     });
     const addTask = (title: string):void => {
       state.tasks = [...state.tasks, generateTask(title)];
