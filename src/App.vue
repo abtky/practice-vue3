@@ -1,10 +1,12 @@
 <template>
+  <InputForm @click-add="addTask" />
   <TaskItem v-for="task in tasks" :key="task.id" :task="task" />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue';
 import { Task, generateTask } from '@/types/Task';
+import InputForm from './components/InputForm.vue';
 import TaskItem from './components/TaskItem.vue';
 
 interface State {
@@ -14,6 +16,7 @@ interface State {
 export default defineComponent({
   name: 'App',
   components: {
+    InputForm,
     TaskItem,
   },
   setup() {
