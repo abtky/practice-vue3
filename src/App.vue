@@ -1,16 +1,32 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
+  <TaskItem v-for="task in tasks" :key="task.id" :task="task" />
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { computed, defineComponent, reactive } from 'vue';
+import { Task, generateTask } from '@/types/Task';
+import TaskItem from './components/TaskItem.vue';
+
+interface State {
+  tasks: Task[]
+}
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld,
+    TaskItem,
+  },
+  setup() {
+    const state = reactive<State>({
+      tasks: [generateTask('My first task')],
+    });
+    const addTask = (title: string):void => {
+      state.tasks = [...state.tasks, generateTask(title)];
+    };
+    const tasks = computed(() => state.tasks);
+    return { tasks, addTask };
   },
 });
 </script>
