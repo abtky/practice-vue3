@@ -1,6 +1,6 @@
 <template>
   <InputForm @click-add="addTask" />
-  <TaskItem v-for="task in tasks" :key="task.id" :task="task" />
+  <TaskItem @click-done="removeTask" v-for="task in tasks" :key="task.id" :task="task" />
 </template>
 
 <script lang="ts">
@@ -29,8 +29,11 @@ export default defineComponent({
     const addTask = (title: string):void => {
       state.tasks = [...state.tasks, generateTask(title)];
     };
+    const removeTask = (id: string):void => {
+      state.tasks = state.tasks.filter((task) => task.id !== id);
+    };
     const tasks = computed(() => state.tasks);
-    return { tasks, addTask };
+    return { tasks, addTask, removeTask };
   },
 });
 </script>
